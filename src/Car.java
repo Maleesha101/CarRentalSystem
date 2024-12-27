@@ -1,22 +1,22 @@
 public class Car {
     private String id;
-    private String brand;
+    private String make;
     private String model;
-    private boolean isAvailable;
+    private boolean available;
 
-    public Car(String id, String brand, String model) {
+    public Car(String id, String make, String model, boolean available) {
         this.id = id;
-        this.brand = brand;
+        this.make = make;
         this.model = model;
-        this.isAvailable = true;
+        this.available = available;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getMake() {
+        return make;
     }
 
     public String getModel() {
@@ -24,19 +24,15 @@ public class Car {
     }
 
     public boolean isAvailable() {
-        return isAvailable;
+        return available;
     }
 
-    public void rentCar() {
-        isAvailable = false;
-    }
-
-    public void returnCar() {
-        isAvailable = true;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     @Override
     public String toString() {
-        return "Car ID: " + id + ", Brand: " + brand + ", Model: " + model + ", Available: " + isAvailable;
+        return "Car ID: " + id + ", Make: " + make + ", Model: " + model + ", Available: " + (available ? "Yes" : "No");
     }
 }

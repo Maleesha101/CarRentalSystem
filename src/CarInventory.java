@@ -13,30 +13,6 @@ public class CarInventory {
         cars.add(car);
     }
 
-    public void addCarDynamically() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Car ID: ");
-        String id = scanner.next();
-        System.out.print("Enter Car Brand: ");
-        String brand = scanner.next();
-        System.out.print("Enter Car Model: ");
-        String model = scanner.next();
-
-        Car newCar = new Car(id, brand, model);
-        cars.add(newCar);
-        System.out.println("Car added successfully!");
-    }
-
-    public List<Car> getAvailableCars() {
-        List<Car> availableCars = new ArrayList<>();
-        for (Car car : cars) {
-            if (car.isAvailable()) {
-                availableCars.add(car);
-            }
-        }
-        return availableCars;
-    }
-
     public Car findCarById(String carId) {
         for (Car car : cars) {
             if (car.getId().equals(carId)) {
@@ -47,8 +23,51 @@ public class CarInventory {
     }
 
     public void displayAllCars() {
-        for (Car car : cars) {
-            System.out.println(car);
+        if (cars.isEmpty()) {
+            System.out.println("No cars available in inventory.");
+        } else {
+            System.out.println("All Cars:");
+            for (Car car : cars) {
+                System.out.println(car);
+            }
         }
+    }
+
+    public void displayAvailableCars() {
+        boolean hasAvailableCars = false;
+        System.out.println("Available Cars:");
+        for (Car car : cars) {
+            if (car.isAvailable()) {
+                System.out.println("Car ID: " + car.getId() + ", Make: " + car.getMake() + ", Model: " + car.getModel());
+                hasAvailableCars = true;
+            }
+        }
+        if (!hasAvailableCars) {
+            System.out.println("No cars available for rent.");
+        }
+    }
+
+    // Method to add a car dynamically by taking user input
+    public void addCarDynamically() {
+        Scanner scanner = new Scanner(System.in);
+
+        // Get car details from the user
+        System.out.println("Enter Car ID:");
+        String carId = scanner.nextLine();
+
+        System.out.println("Enter Car Make:");
+        String make = scanner.nextLine();
+
+        System.out.println("Enter Car Model:");
+        String model = scanner.nextLine();
+
+        System.out.println("Is the car available (true/false)?");
+        boolean available = Boolean.parseBoolean(scanner.nextLine());
+
+        // Create a new Car object and add it to inventory
+        Car newCar = new Car(carId, make, model, available);
+        addCar(newCar);  // Use the existing addCar method to add the new car
+
+        System.out.println("Car added successfully!");
     }
 }

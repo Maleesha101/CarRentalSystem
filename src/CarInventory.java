@@ -47,7 +47,7 @@ public class CarInventory {
         }
     }
 
-    // Method to add a car dynamically by taking user input
+    // Method to add a car  by taking user input
     public void addCarDynamically() {
         Scanner scanner = new Scanner(System.in);
 

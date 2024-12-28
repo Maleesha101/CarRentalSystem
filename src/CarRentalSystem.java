@@ -51,7 +51,7 @@ public class CarRentalSystem {
                 System.out.println("Customer ID not found.");
             }
         } else {
-            System.out.println("Car is either unavailable or does not exist.");
+            System.out.println("Car is unavailable or does not exist.");
         }
     }
 
@@ -62,7 +62,7 @@ public class CarRentalSystem {
             rentalRecords.removeIf(rental -> rental.getCarId().equals(carId));
             System.out.println("Car returned successfully!");
         } else {
-            System.out.println("Car is either not rented or does not exist.");
+            System.out.println("Car is not rented or does not exist.");
         }
     }
 

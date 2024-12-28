@@ -8,7 +8,8 @@ public class Main {
         int choice;
 
         do {
-            System.out.println("\n=== Car Rental System ===");
+            System.out.println("\n\t\t\t WELCOME \t\t\t");
+            System.out.println("................................");
             System.out.println("1. Show All Cars");
             System.out.println("2. Show Available Cars");
             System.out.println("3. Add Customer");

@@ -1,8 +1,9 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerManager {
-    private List<Customer> customers;
+public  class CustomerManager {
+    private static List<Customer> customers;
     private int customerCounter;
 
     public CustomerManager() {
@@ -25,6 +26,36 @@ public class CustomerManager {
             }
         }
         return null;
+    }
+    public void loadCustomersFromFile(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                String id = parts[0];
+                String name = parts[1];
+                String identityNumber = parts[2];
+                String phoneNumber = parts[3];
+                customers.add(new Customer(id, name, identityNumber, phoneNumber));
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error loading customers from file: " + e.getMessage());
+        }
+    }
+
+    public List<Customer> getCustomerList() {
+        return customers;
+    }
+    public static void saveCustomersToFile(String filename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (Customer customer : customers) {
+                writer.write(customer.getId() + "," + customer.getName() + "," + customer.getIdentityNumber() + "," + customer.getPhoneNumber());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving customers to file: " + e.getMessage());
+        }
     }
 
     public void displayCustomers() {

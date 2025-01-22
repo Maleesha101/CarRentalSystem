@@ -1,9 +1,10 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class CarInventory {
-    private List<Car> cars;
+    private static List<Car> cars;
 
     public CarInventory() {
         cars = new ArrayList<>();
@@ -13,7 +14,7 @@ public class CarInventory {
         cars.add(car);
     }
 
-    public Car findCarById(String carId) {
+    public static Car findCarById(String carId) {
         for (Car car : cars) {
             if (car.getId().equals(carId)) {
                 return car;
@@ -44,6 +45,36 @@ public class CarInventory {
         }
         if (!hasAvailableCars) {
             System.out.println("No cars available for rent.");
+        }
+    }
+    public void loadCarsFromFile(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                String id = parts[0];
+                String make = parts[1];
+                String model = parts[2];
+                boolean available = Boolean.parseBoolean(parts[3]);
+                cars.add(new Car(id, make, model, available));
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error loading cars from file: " + e.getMessage());
+        }
+    }
+    public List<Car> getCarList() {
+        return cars;
+    }
+    public static void saveCarsToFile(String filename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (Car car : cars) {
+                writer.write(car.getId() + "," + car.getMake() + "," + car.getModel() + "," + car.isAvailable());
+                writer.newLine();
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error saving cars to file: " + e.getMessage());
         }
     }
 

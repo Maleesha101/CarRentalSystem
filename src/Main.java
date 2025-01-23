@@ -7,14 +7,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        CarRentalSystem system = new CarRentalSystem();
-
+        CarRentalSystem system = new CarRentalSystem(); // Initialize the system
         Scanner scanner = new Scanner(System.in);
-        int choice;
-
         system.loadAllData();
 
-        do {
+        while (true) {
             try {
                 FileReader reader = new FileReader("art.txt");
                 int data = reader.read();
@@ -30,90 +27,46 @@ public class Main {
             }
             System.out.println("\n");
             checkTime();
-            System.out.println();
-
-            System.out.println("1. Show All Cars");
-            System.out.println("2. Show Available Cars");
-            System.out.println("3. Add Customer");
-            System.out.println("4. Show Registered Customers");
-            System.out.println("5. Rent a Car");
-            System.out.println("6. Return a Car");
-            System.out.println("7. Show Rental Records");
-            System.out.println("8. Add New Car");
-            System.out.println("9. Exit");
-
+            System.out.println("\n--- Main Menu ---");
+            System.out.println("1. Customer Menu");
+            System.out.println("2. Staff Menu");
+            System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
+            int mainChoice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
             try {
-                choice = scanner.nextInt();
-                scanner.nextLine();
-
-                switch (choice) {
+                switch (mainChoice) {
                     case 1:
-                        system.displayAllCars();
+                        System.out.print("Enter Customer ID: ");
+                        String customerId = scanner.nextLine();
+
+                        if (system.isValidCustomerId(customerId)) {
+                            CustomerMenu customerMenu = new CustomerMenu(customerId);
+                            customerMenu.runMenu(system);
+                        } else {
+                            System.out.println("Invalid Customer ID. Access Denied.");
+                        }
                         break;
+
                     case 2:
-                        system.displayAvailableCars();
+                        StaffMenu staffMenu = new StaffMenu();
+                        staffMenu.runMenu(system);
                         break;
+
                     case 3:
-                        System.out.print("Enter Customer Name: ");
-                        String customerName = scanner.nextLine();
-                        System.out.print("Enter Identity Number: ");
-                        String identityNumber = scanner.nextLine();
-                        System.out.print("Enter Phone Number: ");
-                        String phoneNumber = scanner.nextLine();
-                        String generatedId = system.addCustomer(customerName, identityNumber, phoneNumber);
-                        System.out.println("Customer added successfully! Assigned ID: " + generatedId);
-                        CustomerManager.saveCustomersToFile("customers.txt");
-                        break;
-                    case 4:
-                        system.displayRegisteredCustomers();
-                        break;
-                    case 5:
-                        System.out.print("Enter Customer ID: ");
-                        String rentCustomerId = scanner.nextLine();
-                        System.out.print("Enter Car ID: ");
-                        String rentCarId = scanner.nextLine();
+                        System.out.println("Exiting the system. Goodbye!");
+                        System.exit(0);
 
-                        system.rentCar(rentCustomerId, rentCarId, "rentalRecords.txt");
-                        break;
-                    case 6:
-                        System.out.print("Enter Customer ID: ");
-                        String returnCustomerId = scanner.nextLine();
-                        System.out.print("Enter Car ID to Return: ");
-                        String returnCarId = scanner.nextLine();
-
-                        system.returnCar(returnCarId, returnCustomerId, "rentalRecords.txt");
-                        break;
-                    case 7:
-                        system.displayRentalRecords();
-                        break;
-                    case 8:
-                        System.out.print("Enter Car ID: ");
-                        String id = scanner.nextLine();
-                        System.out.print("What is the Make of Car: ");
-                        String make = scanner.nextLine();
-                        System.out.print("What is the Model of Car: ");
-                        String model = scanner.nextLine();
-                        system.addCarDynamically(id, make, model);
-                        CarInventory.saveCarsToFile("cars.txt");
-                        break;
-                    case 9:
-                        System.out.println("Exiting...");
-                        break;
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException e){
                 System.out.println("Invalid input. Please enter a number between 1 and 9.");
-                scanner.nextLine();
-                choice = 0; // Reset choice to continue loop
             }
-        } while (choice != 9);
-
-        scanner.close();
+        }
     }
-
-    static void checkTime(){
+    static void checkTime() {
 
         LocalTime currentTime = LocalTime.now();
         int hour = currentTime.getHour();

@@ -11,22 +11,7 @@ public  class CustomerManager {
         customerCounter = 1; // Start customer ID counter
     }
 
-    // Add a customer with details
-    public String addCustomer(String name, String identityNumber, String phoneNumber) {
-        String generatedId = "C" + customerCounter++;
-        Customer customer = new Customer(generatedId, name, identityNumber, phoneNumber);
-        customers.add(customer);
-        return generatedId;
-    }
-
-    public Customer findCustomerById(String customerId) {
-        for (Customer customer : customers) {
-            if (customer.getId().equals(customerId)) {
-                return customer;
-            }
-        }
-        return null;
-    }
+    //Load dat from file
     public void loadCustomersFromFile(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -47,6 +32,8 @@ public  class CustomerManager {
     public List<Customer> getCustomerList() {
         return customers;
     }
+
+   //To save all new customers to inventory
     public static void saveCustomersToFile(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (Customer customer : customers) {
@@ -58,14 +45,15 @@ public  class CustomerManager {
         }
     }
 
-    public void displayCustomers() {
-        if (customers.isEmpty()) {
-            System.out.println("No customers registered.");
-        } else {
-            System.out.println("Registered Customers:");
-            for (Customer customer : customers) {
-                System.out.println(customer);
+    //To check user give ID is exit in inventory
+    public boolean isCustomerRegistered(String customerId) {
+        for (Customer customer : customers) {
+            if (customer.getId().equals(customerId)) {
+                return true;
             }
         }
+        return false;
     }
+
+
 }

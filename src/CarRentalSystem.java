@@ -8,20 +8,16 @@ public class CarRentalSystem {
     private static List<RentalRecord> rentalRecords;
     public CarInventory carInventory;
     public CustomerManager customerManager;
+    public StaffManager staffManager;
 
     public CarRentalSystem() {
         rentalRecords = new ArrayList<>();
         carInventory = new CarInventory();
         customerManager = new CustomerManager();
+        staffManager = new StaffManager();
     }
 
-    // Method to add a rental record
-    public void addRentalRecord(String customerId, String carId) {
-        rentalRecords.add(new RentalRecord(customerId, carId));
-        System.out.println("Rental record added: Customer ID = " + customerId + ", Car ID = " + carId);
-    }
-
-
+    //Method to return car
     public void rentCar(String customerId, String carId, String filename) {
         Car car = CarInventory.findCarById(carId);
         if (car != null && car.isAvailable()) {
@@ -49,6 +45,8 @@ public class CarRentalSystem {
             System.out.println("Car is either unavailable or does not exist.");
         }
     }
+
+    //Method to return car
     public void returnCar(String carId, String customerId, String filename) {
         Car car = CarInventory.findCarById(carId);
         if (car != null && !car.isAvailable()) {
@@ -69,7 +67,6 @@ public class CarRentalSystem {
             System.out.println("Car is already available or does not exist.");
         }
     }
-
 
     // Method to load rental records from a file
     public void loadRentalRecordsFromFile(String filename) {
@@ -98,13 +95,6 @@ public class CarRentalSystem {
         }
     }
 
-    // Example of saving all data
-    public void saveAllData() {
-        carInventory.saveCarsToFile("cars.txt");
-        customerManager.saveCustomersToFile("customers.txt");
-
-    }
-
     // Example of loading all data
     public void loadAllData() {
         carInventory.loadCarsFromFile("cars.txt");
@@ -112,6 +102,8 @@ public class CarRentalSystem {
         loadRentalRecordsFromFile("rentalRecords.txt");
     }
 
+
+    //Display all cars in inventory
     public void displayAllCars() {
         carInventory.getCarList().forEach(System.out::println);
     }
@@ -136,6 +128,8 @@ public class CarRentalSystem {
             System.out.println("No cars are currently available for rent.");
         }
     }
+
+    //Add customer with unique id
     public String addCustomer(String name, String identityNumber, String phoneNumber) {
         String customerId = "C" + (customerManager.getCustomerList().size() + 1); // Generate a unique ID
         Customer newCustomer = new Customer(customerId, name, identityNumber, phoneNumber);
@@ -146,6 +140,7 @@ public class CarRentalSystem {
         return customerId;
     }
 
+    //To add car to inventory
     public void addCarDynamically(String id, String make, String model) {
 
         Car newCar = new Car(id, make, model, true);
@@ -154,6 +149,17 @@ public class CarRentalSystem {
         System.out.println("Car Details: " + newCar);
     }
 
+    //Add Staff
+    public void addStaff(String name, String identityNumber, String phoneNumber, String role, double salary) {
+        staffManager.addStaff(name, identityNumber, phoneNumber, role, salary);
+    }
+
+    public void displayRegisteredStaff() {
+        staffManager.displayStaff();
+    }
+    public boolean isValidCustomerId(String customerId) {
+        return customerManager.isCustomerRegistered(customerId);
+    }
 
 
 }

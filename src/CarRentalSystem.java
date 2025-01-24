@@ -113,40 +113,20 @@ public class CarRentalSystem {
 
     }
     public void displayAvailableCars() {
-        List<Car> cars = carInventory.getCarList();
-        boolean hasAvailableCars = false;
-
-        System.out.println("Available Cars:");
-        for (Car car : cars) {
-            if (car.isAvailable()) {
-                System.out.println(car);
-                hasAvailableCars = true;
-            }
-        }
-
-        if (!hasAvailableCars) {
-            System.out.println("No cars are currently available for rent.");
-        }
+      carInventory.displayAvailableCars();
     }
 
     //Add customer with unique id
     public String addCustomer(String name, String identityNumber, String phoneNumber) {
-        String customerId = "C" + (customerManager.getCustomerList().size() + 1); // Generate a unique ID
-        Customer newCustomer = new Customer(customerId, name, identityNumber, phoneNumber);
-        customerManager.getCustomerList().add(newCustomer); // Add customer to the list
-        System.out.println("Customer added successfully!");
-        System.out.println("Customer Details: " + newCustomer);
 
-        return customerId;
+
+        return customerManager.addCustomer(name, identityNumber, phoneNumber);
     }
 
     //To add car to inventory
-    public void addCarDynamically(String id, String make, String model) {
+    public void addCar(String id, String make, String model) {
 
-        Car newCar = new Car(id, make, model, true);
-        carInventory.getCarList().add(newCar); // Add the car to the inventory
-        System.out.println("Car added successfully!");
-        System.out.println("Car Details: " + newCar);
+        carInventory.addCarDynamically(id, make, model);
     }
 
     //Add Staff

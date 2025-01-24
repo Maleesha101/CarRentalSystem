@@ -11,6 +11,16 @@ public  class CustomerManager {
         customerCounter = 1; // Start customer ID counter
     }
 
+    //Add customer with unique id
+    public String addCustomer(String name, String identityNumber, String phoneNumber) {
+        String customerId = "C" + (getCustomerList().size() + 1); // Generate a unique ID
+        Customer newCustomer = new Customer(customerId, name, identityNumber, phoneNumber);
+        getCustomerList().add(newCustomer); // Add customer to the list
+        System.out.println("Customer added successfully!");
+        System.out.println("Customer Details: " + newCustomer);
+
+        return customerId;
+    }
     //Load dat from file
     public void loadCustomersFromFile(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {

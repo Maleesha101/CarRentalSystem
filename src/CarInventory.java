@@ -18,7 +18,22 @@ public class CarInventory {
         }
         return null;
     }
+    public void displayAvailableCars() {
+        List<Car> cars = getCarList();
+        boolean hasAvailableCars = false;
 
+        System.out.println("Available Cars:");
+        for (Car car : cars) {
+            if (car.isAvailable()) {
+                System.out.println(car);
+                hasAvailableCars = true;
+            }
+        }
+
+        if (!hasAvailableCars) {
+            System.out.println("No cars are currently available for rent.");
+        }
+    }
     //Method to get saved data form file
     public void loadCarsFromFile(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
@@ -37,6 +52,14 @@ public class CarInventory {
         }
     }
 
+    //To add car to inventory
+    public void addCarDynamically(String id, String make, String model) {
+
+        Car newCar = new Car(id, make, model, true);
+        getCarList().add(newCar); // Add the car to the inventory
+        System.out.println("Car added successfully!");
+        System.out.println("Car Details: " + newCar);
+    }
     //Store car object in array
     public List<Car> getCarList() {
         return cars;

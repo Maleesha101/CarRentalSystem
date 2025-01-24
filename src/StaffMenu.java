@@ -83,7 +83,7 @@ public class StaffMenu extends Menu {
                     String make = scanner.nextLine();
                     System.out.print("What is the Model of the Car: ");
                     String model = scanner.nextLine();
-                    system.addCarDynamically(carId, make, model);
+                    system.addCar(carId, make, model);
                     CarInventory.saveCarsToFile("cars.txt");
                     break;
 

@@ -7,10 +7,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        CarRentalSystem system = new CarRentalSystem(); // Initialize the system
+        CarRentalSystem system = new CarRentalSystem();
         Scanner scanner = new Scanner(System.in);
-        system.loadAllData();
+        system.loadAllData(); //load saved data from files
 
+        //Display banner
         while (true) {
             try {
                 FileReader reader = new FileReader("art.txt");
@@ -26,14 +27,18 @@ public class Main {
                 throw new RuntimeException(e);
             }
             System.out.println("\n");
+
+            //Greeting
             checkTime();
+
+            //Menu option
             System.out.println("\n--- Main Menu ---");
             System.out.println("1. Customer Menu");
             System.out.println("2. Staff Menu");
             System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
             int mainChoice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             try {
                 switch (mainChoice) {
@@ -42,10 +47,12 @@ public class Main {
                         String customerId = scanner.nextLine();
 
                         if (system.isValidCustomerId(customerId)) {
+                            System.out.println("Welcome Back!!");
                             CustomerMenu customerMenu = new CustomerMenu(customerId);
                             customerMenu.runMenu(system);
                         } else {
                             System.out.println("Invalid Customer ID. Access Denied.");
+
                         }
                         break;
 

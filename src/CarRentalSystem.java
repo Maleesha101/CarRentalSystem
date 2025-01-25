@@ -11,10 +11,12 @@ public class CarRentalSystem {
     public StaffManager staffManager;
 
     public CarRentalSystem() {
+
         rentalRecords = new ArrayList<>();
         carInventory = new CarInventory();
         customerManager = new CustomerManager();
         staffManager = new StaffManager();
+
     }
 
     //Method to return car
@@ -83,7 +85,6 @@ public class CarRentalSystem {
         }
     }
 
-    // Method to display rental records
     public void displayRentalRecords() {
         if (rentalRecords.isEmpty()) {
             System.out.println("No rental records available.");
@@ -109,7 +110,11 @@ public class CarRentalSystem {
     }
 
     public void displayRegisteredCustomers() {
-       customerManager.getCustomerList().forEach(System.out::println);
+        if (!customerManager.getCustomerList().isEmpty()) {
+            customerManager.getCustomerList().forEach(System.out::println);
+
+        }else
+            System.out.println("No registered customers");
 
     }
     public void displayAvailableCars() {
@@ -134,6 +139,7 @@ public class CarRentalSystem {
         staffManager.addStaff(name, identityNumber, phoneNumber, role, salary);
     }
 
+    //Display staff members
     public void displayRegisteredStaff() {
         staffManager.displayStaff();
     }
@@ -142,4 +148,8 @@ public class CarRentalSystem {
     }
 
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

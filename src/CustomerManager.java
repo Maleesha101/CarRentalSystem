@@ -21,7 +21,7 @@ public  class CustomerManager {
 
         return customerId;
     }
-    //Load dat from file
+    //Load data from file
     public void loadCustomersFromFile(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -39,7 +39,7 @@ public  class CustomerManager {
         }
     }
 
-    public List<Customer> getCustomerList() {
+    public static List<Customer> getCustomerList() {
         return customers;
     }
 

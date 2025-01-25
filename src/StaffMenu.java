@@ -24,36 +24,61 @@ public class StaffMenu extends Menu {
 
         try {
             switch (option) {
-                case 1:
-                    //Show all cars
+                case 1: //Show all cars
+
                     system.displayAllCars();
                     break;
 
-                case 2:
-                    //Show available cars
+                case 2: //Show available cars
+
                     system.displayAvailableCars();
                     break;
 
-                case 3:
-                    //Add Customers
+                case 3: // Add Customers
+
+                    String customerName;
+                    String identityNumber;
+                    String phoneNumber;
+
                     System.out.print("Enter Customer Name: ");
-                    String customerName = scanner.nextLine();
-                    System.out.print("Enter Identity Number: ");
-                    String identityNumber = scanner.nextLine();
-                    System.out.print("Enter Phone Number: ");
-                    String phoneNumber = scanner.nextLine();
+                    customerName = scanner.nextLine();
+
+                    // Validate Identity Number
+                    while (true) {
+                        System.out.print("Enter Identity Number: ");
+                        identityNumber = scanner.nextLine();
+                        if (identityNumber.length() == 12) {
+                            break; // Exit the loop if valid
+                        } else {
+                            System.out.println("Invalid Identity Number. It must be 12 characters long. Please try again.");
+                        }
+                    }
+
+                    // Validate Phone Number
+                    while (true) {
+                        System.out.print("Enter Phone Number: ");
+                        phoneNumber = scanner.nextLine();
+                        if (phoneNumber.length() == 10 && phoneNumber.startsWith("0")) {
+                            break; // Exit the loop if valid
+                        } else {
+                            System.out.println("Invalid Phone Number. It must be 10 digits long and start with '0'. Please try again.");
+                        }
+                    }
+
+                    // Add the customer
                     String generatedId = system.addCustomer(customerName, identityNumber, phoneNumber);
                     System.out.println("Customer added successfully! Assigned ID: " + generatedId);
                     CustomerManager.saveCustomersToFile("customers.txt");
+
                     break;
 
-                case 4:
-                    //Display customers
+                case 4: //Display customers
+
                     system.displayRegisteredCustomers();
                     break;
 
-                case 5:
-                    //Rent a car
+                case 5: //Rent a car
+
                     System.out.print("Enter Customer ID: ");
                     String rentCustomerId = scanner.nextLine();
                     System.out.print("Enter Car ID: ");
@@ -61,8 +86,8 @@ public class StaffMenu extends Menu {
                     system.rentCar(rentCustomerId, rentCarId, "rentalRecords.txt");
                     break;
 
-                case 6:
-                    // Return a car
+                case 6: // Return a car
+
                     System.out.print("Enter Customer ID: ");
                     String returnCustomerId = scanner.nextLine();
                     System.out.print("Enter Car ID to Return: ");
@@ -70,13 +95,13 @@ public class StaffMenu extends Menu {
                     system.returnCar(returnCarId, returnCustomerId, "rentalRecords.txt");
                     break;
 
-                case 7:
-                    //Display rental records
+                case 7: //Display rental records
+
                     system.displayRentalRecords();
                     break;
 
-                case 8:
-                    //Add car to inventory
+                case 8: //Add car to inventory
+
                     System.out.print("Enter Car ID: ");
                     String carId = scanner.nextLine();
                     System.out.print("What is the Make of the Car: ");
@@ -87,14 +112,33 @@ public class StaffMenu extends Menu {
                     CarInventory.saveCarsToFile("cars.txt");
                     break;
 
-                case 9:
-                    //Add staff member
+                case 9: //Add staff member
+
+                    String staffIdentity;
+                    String staffPhone;
                     System.out.print("Enter Staff Name: ");
                     String staffName = scanner.nextLine();
-                    System.out.print("Enter Identity Number: ");
-                    String staffIdentity = scanner.nextLine();
-                    System.out.print("Enter Phone Number: ");
-                    String staffPhone = scanner.nextLine();
+                    while (true) {
+                        System.out.print("Enter Identity Number: ");
+                        staffIdentity = scanner.nextLine();
+                        if (staffIdentity.length() == 12) {
+                            break; // Exit the loop if valid
+                        } else {
+                            System.out.println("Invalid Identity Number. It must be 12 characters long. Please try again.");
+                        }
+                    }
+
+                    // Validate Phone Number
+                    while (true) {
+                        System.out.print("Enter Phone Number: ");
+                        staffPhone = scanner.nextLine();
+                        if (staffPhone.length() == 10 && staffPhone.startsWith("0")) {
+                            break; // Exit the loop if valid
+                        } else {
+                            System.out.println("Invalid Phone Number. It must be 10 digits long and start with '0'. Please try again.");
+                        }
+                    }
+
                     System.out.print("Enter Role: ");
                     String role = scanner.nextLine();
                     System.out.print("Enter Salary: ");
@@ -103,13 +147,13 @@ public class StaffMenu extends Menu {
                     system.addStaff(staffName, staffIdentity, staffPhone, role, salary);
                     break;
 
-                case 10:
-                    //Display staff
+                case 10: //Display staff
+
                     system.displayRegisteredStaff();
                     break;
 
-                case 11:
-                    //Exit method
+                case 11: //Exit from the program
+
                     System.out.println("Exiting...");
                     break;
 
@@ -118,13 +162,14 @@ public class StaffMenu extends Menu {
             }
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please enter a number between 1 and 9.");
-            scanner.nextLine(); // Clear invalid input
+            scanner.nextLine();
         }
     }
 
     // Run the Staff Menu Loop
     public void runMenu(CarRentalSystem system) {
         int staffChoice;
+        //system.loadAllData();
         do {
             displayMenu();
             staffChoice = getUserInput();

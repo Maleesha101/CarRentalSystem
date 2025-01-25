@@ -62,6 +62,7 @@ public class CustomerMenu extends Menu {
     // Run the Customer Menu Loop
     public void runMenu(CarRentalSystem system) {
         int customerChoice = 0;
+       // system.loadAllData();
         do {
             try {
                 displayMenu();

@@ -18,6 +18,7 @@ public class CarInventory {
         }
         return null;
     }
+    //Get available cars
     public void displayAvailableCars() {
         List<Car> cars = getCarList();
         boolean hasAvailableCars = false;

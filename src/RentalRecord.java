@@ -1,10 +1,10 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.List;
 
 public class RentalRecord {
     private String customerId;
     private String carId;
+    private static List<RentalRecord> rentalRecords;
 
     public RentalRecord(String customerId, String carId) {
         this.customerId = customerId;
@@ -18,6 +18,7 @@ public class RentalRecord {
     public String getCarId() {
         return carId;
     }
+
 
     @Override
     public String toString() {

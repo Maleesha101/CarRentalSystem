@@ -1,0 +1,13 @@
+[Rented] Customer ID: C1, Car ID: 7 on 22/01/2025 22:12
+[Rented] Customer ID: C1, Car ID: 1 on 22/01/2025 22:12
+[Returned] Customer ID: C1, Car ID: 7 on 22/01/2025 22:13
+[Rented] Customer ID: d, Car ID: 3 on 22/01/2025 22:20
+[Rented] Customer ID: C1, Car ID: 7 on 22/01/2025 22:28
+[Rented] Customer ID: C1, Car ID: 1 on 22/01/2025 22:30
+[Rented] Customer ID: C1, Car ID: 1 on 23/01/2025 00:15
+[Returned] Customer ID: C1, Car ID: 1 on 23/01/2025 00:15
+[Rented] Customer ID: C1, Car ID: 1 on 23/01/2025 07:43
+[Rented] Customer ID: C1, Car ID: 7 on 23/01/2025 08:16
+[Rented] Customer ID: C1, Car ID: 3 on 23/01/2025 10:37
+[Rented] Customer ID: C1, Car ID: 3 on 24/01/2025 15:51
+[Rented] Customer ID: C1, Car ID: 7 on 24/01/2025 16:36

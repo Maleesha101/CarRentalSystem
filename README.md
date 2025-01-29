@@ -108,5 +108,3 @@ To exit the application, select the Exit option from either the Main Menu, Staff
 Thank you for using the Car Rental System! If you have questions or require assistance, please contact me.
 
 ---
-
-For more details, please refer to the [project report](Cargo%20Vehicle%20Rental%20System.pdf).
